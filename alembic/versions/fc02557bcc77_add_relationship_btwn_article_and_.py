@@ -1,8 +1,8 @@
 """Add relationship btwn article and comment
 
-Revision ID: d49c210c9f93
+Revision ID: fc02557bcc77
 Revises: 
-Create Date: 2024-09-13 10:07:44.330209
+Create Date: 2024-09-13 12:10:55.811986
 
 """
 from typing import Sequence, Union
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = 'd49c210c9f93'
+revision: str = 'fc02557bcc77'
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None

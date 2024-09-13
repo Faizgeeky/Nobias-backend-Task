@@ -41,4 +41,10 @@ class ArticleAddSchema(BaseModel):
     author: str
     category : NewsCategory
 
-
+#  Important schema to return data along with pagination details
+class ArticlePaginationResponse(BaseModel):
+    page: int
+    page_size:int
+    total_articles: int
+    total_pages : int
+    articles : List[ArticleSchema]
