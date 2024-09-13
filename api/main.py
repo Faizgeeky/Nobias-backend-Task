@@ -7,7 +7,7 @@ Date : 12/09/2024
 
 from fastapi import FastAPI 
 from fastapi.middleware.cors import CORSMiddleware
-from routes import articles
+from .routes import articles
 
 app = FastAPI()
 

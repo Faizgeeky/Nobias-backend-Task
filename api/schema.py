@@ -7,15 +7,38 @@ Date : 12/09/2024
 
 from pydantic import BaseModel
 from enum import Enum
+from typing import List
 
 class NewsCategory(Enum):
     SPORTS="sports"
     CURRENT_AFFAIRS="current_affairs"
     ECONOMY="economy"
 
+class CommentSchema(BaseModel):
+    id: int
+    comment: str
+    commented_by: str
+
+    class Config:
+        orm_mode = True
+    
+class AddCommentSchema(BaseModel):
+    comment : str
+    author : str
+    
+
 class ArticleSchema(BaseModel):
+    id : int
+    title: str
+    content: str
+    comments: List[CommentSchema] = []
+    author: str
+    category : NewsCategory
+
+class ArticleAddSchema(BaseModel):
     title: str
     content: str
     author: str
     category : NewsCategory
+
 
