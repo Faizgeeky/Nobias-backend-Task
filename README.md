@@ -9,6 +9,33 @@
 - **Update Article**: Users can easily update the Article
 - **Delete Article**: Users can delete filer the Article
 
+### API Endpoints 
+
+1. Fetch and filter all articles in pagination filters(author , category):
+    ```sh
+    GET
+    /articles
+    ```
+2. Update the article:
+    ```sh
+    PUT
+    /articles/{article_id}
+    ```
+3. Delete the article:
+    ```sh
+    DELETE
+    /articles/{article_id}
+    ```
+4. Adding Article
+    ```sh
+    POST
+    /articles
+    ```
+5. Adding Comment
+    ```sh
+    POST
+    /comments/{article_id}
+    ```
 
 ### Enhancement
 - **Adding News category
