@@ -2,17 +2,15 @@
 Code written By : Faizmohammad N
 email : nandoliyafaiz429@gmail.com
 github : https://github.com/Faizgeeky/Nobias-backend-Task
-Date : 12/09/2024
+Date : 13/09/2024
 '''
 
 from pydantic import BaseModel
 from enum import Enum
 from typing import List
 
-class NewsCategory(Enum):
-    SPORTS="sports"
-    CURRENT_AFFAIRS="current_affairs"
-    ECONOMY="economy"
+
+'''Add all valdiation schema for data validation and serilization'''
 
 class CommentSchema(BaseModel):
     id: int
@@ -33,13 +31,13 @@ class ArticleSchema(BaseModel):
     content: str
     comments: List[CommentSchema] = []
     author: str
-    category : NewsCategory
+    category : str
 
 class ArticleAddSchema(BaseModel):
     title: str
     content: str
     author: str
-    category : NewsCategory
+    category : str
 
 #  Important schema to return data along with pagination details
 class ArticlePaginationResponse(BaseModel):

@@ -10,7 +10,12 @@
 - **Delete Article**: Users can delete filer the Article
 
 
-
+### Enhancement
+- **Adding News category
+- **Users Auth 
+- **Authorized loggedIn users to add articles
+- **Limit no of comments
+- **Sub comments or reply comments feature
 
 ## Setup Instructions
 

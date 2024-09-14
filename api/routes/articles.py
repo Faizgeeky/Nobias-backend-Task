@@ -2,11 +2,11 @@
 Code written By : Faizmohammad N
 email : nandoliyafaiz429@gmail.com
 github : https://github.com/Faizgeeky/Nobias-backend-Task
-Date : 12/09/2024
+Date : 13/09/2024
 '''
 
 from fastapi import APIRouter, Depends, HTTPException, status, Query
-from api.schema import ArticleSchema, NewsCategory, ArticleAddSchema, AddCommentSchema, ArticlePaginationResponse
+from api.schema import ArticleSchema, ArticleAddSchema, AddCommentSchema, ArticlePaginationResponse
 from api.models import Articles, Comments
 from api.database import get_db
 from sqlalchemy.orm import Session
@@ -15,21 +15,21 @@ from typing import List , Optional
 router = APIRouter()
 
 # add article
-@router.post("/articles/")
+@router.post("/articles")
 def add_article(article: ArticleAddSchema, db: Session = Depends(get_db)):
     db_article = Articles(
         title=article.title,
         content=article.content,
         author=article.author,
-        category='sports'
-        # comments = []
+        category=article.category
+        
     )
     db.add(db_article)
     db.commit()
     db.refresh(db_article)
     return db_article
 
-
+# add comment on artivle exist in db
 @router.post('/comments/{article_id}')
 def add_comment(article_id: int,comment :AddCommentSchema, db : Session = Depends(get_db)):
     # check article exist else return 404
@@ -48,22 +48,25 @@ def add_comment(article_id: int,comment :AddCommentSchema, db : Session = Depend
     #return comment object
     return db_comment
 
-# get all articel
+
+# get all articles using pagination data page, page_size
 @router.get('/articles', response_model=ArticlePaginationResponse)
-def get_all_articles(
+async def get_all_articles(
     author : Optional[str] = None,
     category : Optional[str] = None,
-    page: int = Query(1, ge=1),         # Default page is 1, must be >= 1
+    page: int = Query(1, ge=1),    
     page_size: int = Query(10, ge=1),
     db: Session = Depends(get_db)):
     query = db.query(Articles)
 
+    # handle filters paramertes 
     if author :
         query = query.filter(Articles.author == author)
     if category :
         query = query.filter(Articles.category == category)
 
     article_count = query.count()
+    # handle pagination
     total_pages = (article_count + page_size -1) // page_size
 
     if page > total_pages:
@@ -79,28 +82,29 @@ def get_all_articles(
     }
 
 
-#update article
+#update article pass article id as path parmeter
 @router.put('/articles/{article_id}')
 def update_article(article_id:int, article : ArticleAddSchema ,db: Session = Depends(get_db)):
+    # check if article exist
     db_article =  db.query(Articles).filter(Articles.id == article_id).first()
-
-    #  Check if article with id exists!
+    # handle if article not found
     if db_article is None:
         raise HTTPException( status_code=status.HTTP_404_NOT_FOUND,detail=f"Article with id {article_id} not found" ) 
     # change all parameters 
     db_article.title=article.title
     db_article.content=article.content
     db_article.author=article.author
-    db_article.category="sports"
+    db_article.category=article.category
         
     db.commit()
     db.refresh(db_article)
     #return refreshed updated article
     return db_article
 
-#delete article
+#delete article again using article id in path parameters 
 @router.delete('/articles/{article_id}',response_model=ArticleSchema)
 def delete_article(article_id:int,db: Session = Depends(get_db)):
+    #  check if article exists!
     db_article =  db.query(Articles).filter(Articles.id == article_id).first()
 
     if db_article is None:
