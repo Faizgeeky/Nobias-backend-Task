@@ -16,6 +16,8 @@
 - **Authorized loggedIn users to add articles
 - **Limit no of comments
 - **Sub comments or reply comments feature
+- **Adding asyn db session with db like postgres
+- **Adding failed and more testcases in unit testing
 
 ## Setup Instructions
 
@@ -36,20 +38,30 @@ cd Nobias-backend-Task
     pip install -r requirements.txt
     ```
 
+###   Use alembic migrations to migrate data
+
+2. Run API testing :
+    ```sh
+    alembic init 
+    alembic revision --autogenerate -m "Migration or model chnaged message"
+    alembic upgrade head
+    ```
+   
 
 ###   🚀🚀 Ready to launch your API Endpoints
 
-4. Run uvicorn server:
+3. Run uvicorn server:
     ```sh
     uvicorn api.main:app --reload 
     ```
 
 ###   🚀🚀 Test all API's using pytest
 
-5. Run API testing :
+4. Run API testing :
     ```sh
     pytest 
     ```
+
    
 
 ### API's Documentation
@@ -81,14 +93,6 @@ An enpoint http://localhost:8000/docs will have list of schema and api endpoints
     docker run --env-file .env -p 8000:8000 app
     <!-- Access the application at http://127.0.0.1:8000/. -->
     
-
-### Docker compose 
-
-    
-    docker-compose build
-    docker-compose up
-    
-
 
 ### API Documentations 
 
