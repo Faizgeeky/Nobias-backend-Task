@@ -95,31 +95,7 @@ cd Nobias-backend-Task
 
 An enpoint http://localhost:8000/docs will have list of schema and api endpoints. Swagger OpenAPI Document
 
- 
-
-# Docker Setup 
-
-## Building and Running the Docker Container
-
-### Docker Build and Run
-
-1. **Build the Docker Image**
-
-   Build the Docker image using the following command:
-
-   ```sh
-   docker build -t app .
-   ```
-
-2. **Run the Docker Container**
-
-  Run the Docker container with the environment variables from the .env file and map port 8000 to your local machine:
-
-    
-    Copy code
-    docker run --env-file .env -p 8000:8000 app
-    <!-- Access the application at http://127.0.0.1:8000/. -->
-    
+     
 
 ### API Documentations 
 
